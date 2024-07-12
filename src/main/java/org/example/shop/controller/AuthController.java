@@ -1,9 +1,11 @@
 package org.example.shop.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.shop.model.card.Hisob;
 import org.example.shop.model.user.Blocked;
 import org.example.shop.model.user.Role;
 import org.example.shop.model.user.User;
+import org.example.shop.service.HisobService;
 import org.example.shop.service.ProductService;
 import org.example.shop.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AuthController {
     private final UserService userService;
+    private final HisobService hisobService;
     private final ProductService productService;
 
     @RequestMapping(value = "/")
     public String home(){
+        User superUser = new User("super","super","super",Role.SUPER_ADMIN,Blocked.ON_BLOCK,null);
+        int i = userService.addUser1(superUser);
+        if (i==200){
+            Hisob hisob = new Hisob(userService.logIn("super","super"),100D);
+            hisobService.addHisob(hisob);
+            userService.createUserHisob(superUser.getId(),hisob);
+        }
         return "index";
     }
 

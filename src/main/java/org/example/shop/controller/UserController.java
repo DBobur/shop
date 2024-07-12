@@ -117,7 +117,7 @@ public class UserController {
     ){
         Order order = orderService.getById(orderId);
         User user = userService.getById1(userId);
-        User superU = userService.getById1(UUID.fromString("741e3031-3c2c-4cc0-b0d6-422935b0b4a7"));
+        User superU = userService.logIn("super","super");
         Product product = productService.getById1(productId);
         Card card = cardService.getByCardNumber1(buy_type);
 

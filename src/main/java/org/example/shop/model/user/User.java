@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
+import org.example.shop.model.BaseEntity;
 import org.example.shop.model.card.Card;
 import org.example.shop.model.card.Hisob;
 import org.example.shop.model.product.Order;
@@ -26,10 +27,8 @@ import static org.example.shop.model.user.Role.USER;
 @Getter
 @Setter
 @ToString
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+public class User extends BaseEntity {
+
     private String name;
     @Column(unique = true,nullable = false)
     @NotBlank
@@ -38,10 +37,6 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role = USER;
-    @CreationTimestamp
-    private LocalDate create_date;
-    @UpdateTimestamp
-    private LocalDate update_date;
     @Enumerated(EnumType.STRING)
     private Blocked blocked = Blocked.BLOCK;
 //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

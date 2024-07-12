@@ -2,10 +2,12 @@ package org.example.shop.model.card;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.shop.model.BaseEntity;
 import org.example.shop.model.user.User;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.UUID;
 
 @Entity(name = "hisobs")
@@ -14,14 +16,9 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
-public class Hisob {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+public class Hisob extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     private Double balance;
-    @CreationTimestamp
-    private LocalDate create_date;
 }
